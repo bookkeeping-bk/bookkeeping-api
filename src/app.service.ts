@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import TestService from './modules/test.service';
+// import RepoService from './repo.service'
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  constructor (private readonly testService: TestService){}
+  async getHello(): Promise<string> {
+    // return 'Hello World!';
+    return `Total books are ${await this.testService.testRepo.count()}`;
   }
 }
