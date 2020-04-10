@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateBillTypes1586484771026 implements MigrationInterface {
-  private billTypesTable = new Table({
-    name: 'bill_types',
+export class CreatePaymentSources1586489517550 implements MigrationInterface {
+  private paymentSourcesTable = new Table({
+    name: 'payment_sources',
     columns: [
       {
         name: 'id',
@@ -15,17 +15,15 @@ export class CreateBillTypes1586484771026 implements MigrationInterface {
         name: 'name',
         type: 'varchar',
         length: '32',
-        isUnique: true,
         isNullable: false,
-        comment: '账单分类名称',
+        comment: '账户名称',
       },
       {
-        name: 'type',
-        type: 'tinyint',
-        length: '1',
-        default: 1,
+        name: 'remark',
+        type: 'varchar',
+        length: '255',
         isNullable: false,
-        comment: '账单分类类型（1:收入 2:支出）',
+        comment: '备注',
       },
       {
         name: 'created_at',
@@ -45,10 +43,10 @@ export class CreateBillTypes1586484771026 implements MigrationInterface {
   });
 
   public async up(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.createTable(this.billTypesTable);
+    await queryRunner.createTable(this.paymentSourcesTable);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.dropTable(this.billTypesTable);
+    await queryRunner.dropTable(this.paymentSourcesTable);
   }
 }
