@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateOrderTypes1586483237544 implements MigrationInterface {
-  private orderTypesTable = new Table({
-    name: 'order_types',
+export class CreateBooks1586484355579 implements MigrationInterface {
+  private booksTable = new Table({
+    name: 'books',
     columns: [
       {
         name: 'id',
@@ -17,14 +17,7 @@ export class CreateOrderTypes1586483237544 implements MigrationInterface {
         length: '32',
         isUnique: true,
         isNullable: false,
-        comment: '账单分类名称',
-      },
-      {
-        name: 'type',
-        type: 'tinyint',
-        length: '1',
-        isNullable: false,
-        comment: '账单分类类型（1:支出 2:收入）',
+        comment: '账本名称',
       },
       {
         name: 'created_at',
@@ -44,10 +37,10 @@ export class CreateOrderTypes1586483237544 implements MigrationInterface {
   });
 
   public async up(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.createTable(this.orderTypesTable);
+    await queryRunner.createTable(this.booksTable);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.dropTable(this.orderTypesTable);
+    await queryRunner.dropTable(this.booksTable);
   }
 }
