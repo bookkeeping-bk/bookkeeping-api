@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as ormconfig from './database/ormconfig';
+
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  imports: [TypeOrmModule.forRoot(require('./database/ormconfig'))],
+  imports: [TypeOrmModule.forRoot(ormconfig), AuthModule],
   controllers: [],
   providers: [],
 })

@@ -9,7 +9,10 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@/models/*": ["src/models/*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }
