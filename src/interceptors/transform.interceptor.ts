@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ResponseResult } from 'src/interfaces/response-result.interface';
-import { responseLogger } from '../logger';
+import { ResponseResult } from '@/interfaces/response-result.interface';
+import { responseLogger } from '@/utils/logger';
 
 interface Response<T> {
   data: T;
