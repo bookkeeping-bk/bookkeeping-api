@@ -10,7 +10,7 @@ export class AuthService {
     @InjectRepository(User) public readonly userRepo: Repository<User>,
   ) {}
 
-  async getHello(): Promise<string> {
-    return await `Total Users are ${await this.userRepo.count()}`;
+  async register(user: User): Promise<void> {
+    await this.userRepo.save(this.userRepo.create(user));
   }
 }
