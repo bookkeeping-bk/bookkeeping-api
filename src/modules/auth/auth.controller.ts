@@ -18,7 +18,6 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: '注册' })
   async register(@Body() user: User) {
-    this.authService.register(user);
-    return { msg: 'ok', data: user };
+    return this.authService.register(user);
   }
 }
