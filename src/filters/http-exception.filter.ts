@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { ResponseResult } from '../interfaces/response-result.interface';
 
-// import { errorLogger } from '../logger';
+import { errorLogger } from '../logger';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -33,6 +33,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     response.status(status);
     response.header('Content-Type', 'application/json; charset=utf-8');
     response.send(errorResponse);
-    // errorLogger.error(url, errorResponse);
+    errorLogger.error(url, errorResponse);
   }
 }

@@ -7,7 +7,7 @@ import {
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ResponseResult } from 'src/interfaces/response-result.interface';
-// import { responseLogger } from '../logger';
+import { responseLogger } from '../logger';
 
 interface Response<T> {
   data: T;
@@ -34,7 +34,7 @@ export class TransformInterceptor<T>
           message: '',
           success: true,
         };
-        // responseLogger.info(url, res);
+        responseLogger.info(url, successResponse);
         return successResponse;
       }),
     );
