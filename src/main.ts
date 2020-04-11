@@ -8,23 +8,24 @@ import { HttpExceptionFilter } from './filters/http-exception.filter';
 
 import { AppModule } from './app.module';
 
-const { APP_NAME, APP_PORT, APP_SWAGGER_URL } = process.env;
-const port = APP_PORT || 3000;
+const port = process.env.APP_PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix(process.env.APP_VERSION_PREFIX);
+  app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const options = new DocumentBuilder()
-    .setTitle(`${APP_NAME}后台API`)
-    .setDescription(`${APP_NAME}后台API文档`)
+    .setTitle(`${process.env.APP_NAME}后台API`)
+    .setDescription(`${process.env.APP_NAME}后台API文档`)
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup(APP_SWAGGER_URL, app, document);
+  SwaggerModule.setup(process.env.APP_SWAGGER_URL, app, document);
 
-  app.useGlobalInterceptors(new TransformInterceptor());
-  app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(port);
+
   Logger.log(`Server running on http://localhost:${port}`, 'Bootstrap');
 }
 

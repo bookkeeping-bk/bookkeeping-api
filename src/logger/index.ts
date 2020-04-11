@@ -14,7 +14,7 @@ const resolvePath = (dir, filename) =>
 
 const commonCinfig = {
   type: 'dateFile',
-  pattern: '-yyyy-MM-dd.log',
+  pattern: 'yyyy-MM-dd.log',
   alwaysIncludePattern: true,
 };
 
@@ -22,17 +22,17 @@ log4js.configure({
   appenders: {
     request: {
       ...commonCinfig,
-      filename: resolvePath('request', 'request.log'),
+      filename: resolvePath('request', 'request'),
       category: 'request',
     },
     response: {
       ...commonCinfig,
-      filename: resolvePath('response', 'response.log'),
+      filename: resolvePath('response', 'response'),
       category: 'response',
     },
     error: {
       ...commonCinfig,
-      filename: resolvePath('error', 'error.log'),
+      filename: resolvePath('error', 'error'),
       category: 'error',
     },
   },
