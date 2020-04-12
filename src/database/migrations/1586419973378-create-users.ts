@@ -38,15 +38,13 @@ export class CreateUsers1586419973378 implements MigrationInterface {
         type: 'varchar',
         length: '255',
         isNullable: true,
-        default: null,
         comment: '登录IP',
       },
       {
-        name: 'reg_ip',
+        name: 'register_ip',
         type: 'varchar',
         length: '255',
         isNullable: true,
-        default: null,
         comment: '注册IP',
       },
       {
