@@ -14,7 +14,7 @@ export class AuthService {
     const { mobile } = user;
     const existUser = await this.userRepo.findOne({ where: { mobile } });
     if (existUser) {
-      throw new HttpException('用户已存在', HttpStatus.UNPROCESSABLE_ENTITY);
+      throw new HttpException('手机号已存在', HttpStatus.UNPROCESSABLE_ENTITY);
     }
     const newUser = await this.userRepo.create(user);
     await this.userRepo.save(newUser);

@@ -1,4 +1,3 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -31,16 +30,13 @@ export class User {
   id: number;
 
   @Column()
-  @ApiProperty({ description: '用户名' })
   username: string;
 
   // @Column({ select: false })
   @Column()
-  @ApiProperty({ description: '密码' })
   password: string;
 
   @Column()
-  @ApiProperty({ description: '手机号' })
   mobile: string;
 
   @Column({ name: 'login_ip' })
