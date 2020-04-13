@@ -1,6 +1,5 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
-import { User } from '@/models/user.entity';
 import { AuthService } from './auth.service';
 import { RegisterDto, LoginDto } from './auth.entity';
 
@@ -19,7 +18,7 @@ export class AuthController {
   @Post('register')
   @ApiOperation({ summary: '用户注册' })
   @ApiBody({ type: RegisterDto })
-  async register(@Body() user: User) {
+  async register(@Body(ValidationPipe) user: RegisterDto) {
     return this.authService.register(user);
   }
 }
