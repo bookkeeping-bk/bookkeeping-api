@@ -21,6 +21,7 @@ async function bootstrap() {
     .setTitle(`${process.env.APP_NAME}后台API`)
     .setDescription(`${process.env.APP_NAME}后台API文档`)
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(process.env.APP_SWAGGER_URL, app, document);

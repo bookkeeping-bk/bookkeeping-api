@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
   BeforeInsert,
 } from 'typeorm';
-import { hashSync } from 'bcryptjs';
 import * as publicIp from 'public-ip';
+import { hashSync, compareSync } from 'bcryptjs';
 
 @Entity({ name: 'users' })
 export class User {
@@ -17,6 +17,14 @@ export class User {
    */
   static encryptPassword(password) {
     return hashSync(password, 10);
+  }
+
+  /**
+   * 检测密码是否一致
+   * @param { String } password - 加密前密码
+   */
+  async comparePassword(password: string) {
+    return await compareSync(password, this.password);
   }
 
   /**
@@ -32,7 +40,6 @@ export class User {
   @Column()
   username: string;
 
-  // @Column({ select: false })
   @Column()
   password: string;
 
