@@ -1,6 +1,6 @@
 /**
  * @author: YouJie
- * @date: 2020-04-16 21:07:06
+ * @date: 2020-04-16 22:11:24
  * 账单表
  */
 
@@ -53,18 +53,18 @@ export class CreateBills1586484980383 implements MigrationInterface {
         name: 'images',
         type: 'varchar',
         length: '255',
-        isNullable: true,
+        isNullable: false,
         comment: '图片',
       },
       {
         name: 'remark',
         type: 'varchar',
         length: '255',
-        isNullable: true,
+        isNullable: false,
         comment: '备注',
       },
       {
-        name: 'deleted_at',
+        name: 'delete_at',
         type: 'timestamp',
         isNullable: true,
         comment: '删除时间',
@@ -72,13 +72,13 @@ export class CreateBills1586484980383 implements MigrationInterface {
       {
         name: 'created_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '创建时间',
       },
       {
         name: 'updated_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '更新时间',
       },
     ],

@@ -1,6 +1,6 @@
 /**
  * @author: YouJie
- * @date: 2020-04-16 21:07:18
+ * @date: 2020-04-16 22:12:07
  * 支付来源表
  */
 
@@ -32,7 +32,7 @@ export class CreatePaymentSources1586489517550 implements MigrationInterface {
         comment: '备注',
       },
       {
-        name: 'deleted_at',
+        name: 'delete_at',
         type: 'timestamp',
         isNullable: true,
         comment: '删除时间',
@@ -40,13 +40,13 @@ export class CreatePaymentSources1586489517550 implements MigrationInterface {
       {
         name: 'created_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '创建时间',
       },
       {
         name: 'updated_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '更新时间',
       },
     ],

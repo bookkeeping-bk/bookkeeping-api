@@ -46,6 +46,9 @@ export class User {
   @Column()
   mobile: string;
 
+  @Column()
+  avatar: string;
+
   @Column({ name: 'login_ip' })
   loginIp: string;
 

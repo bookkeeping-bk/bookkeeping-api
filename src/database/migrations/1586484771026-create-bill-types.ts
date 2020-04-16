@@ -1,6 +1,6 @@
 /**
  * @author: YouJie
- * @date: 2020-04-16 21:06:27
+ * @date: 2020-04-16 22:10:11
  * 账单类型/分类表
  */
 
@@ -34,7 +34,7 @@ export class CreateBillTypes1586484771026 implements MigrationInterface {
         comment: '账单分类类型（1:收入 2:支出）',
       },
       {
-        name: 'deleted_at',
+        name: 'delete_at',
         type: 'timestamp',
         isNullable: true,
         comment: '删除时间',
@@ -42,13 +42,13 @@ export class CreateBillTypes1586484771026 implements MigrationInterface {
       {
         name: 'created_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '创建时间',
       },
       {
         name: 'updated_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '更新时间',
       },
     ],

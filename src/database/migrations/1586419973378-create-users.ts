@@ -1,6 +1,6 @@
 /**
  * @author: YouJie
- * @date: 2020-04-16 21:06:02
+ * @date: 2020-04-16 22:06:00
  * 用户表
  */
 
@@ -17,7 +17,6 @@ export class CreateUsers1586419973378 implements MigrationInterface {
         isGenerated: true,
         generationStrategy: 'increment',
       },
-
       {
         name: 'username',
         type: 'varchar',
@@ -70,13 +69,13 @@ export class CreateUsers1586419973378 implements MigrationInterface {
       {
         name: 'created_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '创建时间',
       },
       {
         name: 'updated_at',
         type: 'timestamp',
-        isNullable: false,
+        isNullable: true,
         comment: '更新时间',
       },
     ],

@@ -1,6 +1,6 @@
 /**
  * @author: YouJie
- * @date: 2020-04-16 21:06:14
+ * @date: 2020-04-16 22:07:24
  * 账本表
  */
 
@@ -26,21 +26,21 @@ export class CreateBooks1586484355579 implements MigrationInterface {
         comment: '账本名称',
       },
       {
-        name: 'deleted_at',
+        name: 'delete_at',
         type: 'timestamp',
         isNullable: true,
         comment: '删除时间',
       },
       {
         name: 'created_at',
-        type: 'timestamptz',
-        isNullable: false,
+        type: 'timestamp',
+        isNullable: true,
         comment: '创建时间',
       },
       {
         name: 'updated_at',
-        type: 'timestamptz',
-        isNullable: false,
+        type: 'timestamp',
+        isNullable: true,
         comment: '更新时间',
       },
     ],
