@@ -1,3 +1,9 @@
+/**
+ * @author: YouJie
+ * @date: 2020-04-16 21:07:18
+ * 支付来源表
+ */
+
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreatePaymentSources1586489517550 implements MigrationInterface {
@@ -26,17 +32,21 @@ export class CreatePaymentSources1586489517550 implements MigrationInterface {
         comment: '备注',
       },
       {
+        name: 'deleted_at',
+        type: 'timestamp',
+        isNullable: true,
+        comment: '删除时间',
+      },
+      {
         name: 'created_at',
-        type: 'timestamptz',
+        type: 'timestamp',
         isNullable: false,
-        default: 'now()',
         comment: '创建时间',
       },
       {
         name: 'updated_at',
-        type: 'timestamptz',
+        type: 'timestamp',
         isNullable: false,
-        default: 'now()',
         comment: '更新时间',
       },
     ],

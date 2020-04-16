@@ -1,3 +1,9 @@
+/**
+ * @author: YouJie
+ * @date: 2020-04-16 21:06:27
+ * 账单类型/分类表
+ */
+
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateBillTypes1586484771026 implements MigrationInterface {
@@ -28,17 +34,21 @@ export class CreateBillTypes1586484771026 implements MigrationInterface {
         comment: '账单分类类型（1:收入 2:支出）',
       },
       {
+        name: 'deleted_at',
+        type: 'timestamp',
+        isNullable: true,
+        comment: '删除时间',
+      },
+      {
         name: 'created_at',
-        type: 'timestamptz',
+        type: 'timestamp',
         isNullable: false,
-        default: 'now()',
         comment: '创建时间',
       },
       {
         name: 'updated_at',
-        type: 'timestamptz',
+        type: 'timestamp',
         isNullable: false,
-        default: 'now()',
         comment: '更新时间',
       },
     ],

@@ -1,3 +1,9 @@
+/**
+ * @author: YouJie
+ * @date: 2020-04-16 21:06:02
+ * 用户表
+ */
+
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateUsers1586419973378 implements MigrationInterface {
@@ -11,6 +17,7 @@ export class CreateUsers1586419973378 implements MigrationInterface {
         isGenerated: true,
         generationStrategy: 'increment',
       },
+
       {
         name: 'username',
         type: 'varchar',
@@ -32,6 +39,13 @@ export class CreateUsers1586419973378 implements MigrationInterface {
         isUnique: true,
         isNullable: false,
         comment: '手机号',
+      },
+      {
+        name: 'avatar',
+        type: 'varchar',
+        length: '255',
+        isNullable: true,
+        comment: '头像',
       },
       {
         name: 'login_ip',
@@ -56,13 +70,13 @@ export class CreateUsers1586419973378 implements MigrationInterface {
       {
         name: 'created_at',
         type: 'timestamp',
-        isNullable: true,
+        isNullable: false,
         comment: '创建时间',
       },
       {
         name: 'updated_at',
         type: 'timestamp',
-        isNullable: true,
+        isNullable: false,
         comment: '更新时间',
       },
     ],

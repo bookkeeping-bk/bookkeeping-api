@@ -1,3 +1,9 @@
+/**
+ * @author: YouJie
+ * @date: 2020-04-16 21:07:06
+ * 账单表
+ */
+
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateBills1586484980383 implements MigrationInterface {
@@ -39,37 +45,40 @@ export class CreateBills1586484980383 implements MigrationInterface {
       },
       {
         name: 'record_at',
-        type: 'timestamptz',
-        isNullable: false,
-        default: 'now()',
+        type: 'timestamp',
+        isNullable: true,
         comment: '记录时间',
       },
       {
         name: 'images',
         type: 'varchar',
         length: '255',
-        isNullable: false,
+        isNullable: true,
         comment: '图片',
       },
       {
         name: 'remark',
         type: 'varchar',
         length: '255',
-        isNullable: false,
+        isNullable: true,
         comment: '备注',
       },
       {
+        name: 'deleted_at',
+        type: 'timestamp',
+        isNullable: true,
+        comment: '删除时间',
+      },
+      {
         name: 'created_at',
-        type: 'timestamptz',
+        type: 'timestamp',
         isNullable: false,
-        default: 'now()',
         comment: '创建时间',
       },
       {
         name: 'updated_at',
-        type: 'timestamptz',
+        type: 'timestamp',
         isNullable: false,
-        default: 'now()',
         comment: '更新时间',
       },
     ],
