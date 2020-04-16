@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(@InjectRepository(User) private userRepo: Repository<User>) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      // ignoreExpiration: true, 永久不过期
+      ignoreExpiration: process.env.JWT_IGNORE_EXPIRATION === 'true',
       secretOrKey: process.env.JWT_SECRET_KEY,
     } as StrategyOptions);
   }

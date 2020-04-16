@@ -29,6 +29,10 @@ async function bootstrap() {
   await app.listen(port);
 
   Logger.log(`Server running on http://localhost:${port}`, 'Bootstrap');
+  Logger.log(
+    `Swagger running on http://localhost:${port}/${process.env.APP_SWAGGER_URL}`,
+    'Swagger',
+  );
 }
 
 bootstrap();
