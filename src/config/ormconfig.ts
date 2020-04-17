@@ -1,5 +1,13 @@
 import * as path from 'path';
 
+// const envConfig = require('dotenv').config(
+//   `.env${process.env.NODE_ENV ? `.${process.env.NODE_ENV}` : ''}`,
+// );
+
+// function env(key) {
+//   return envConfig[key] || process.env[key];
+// }
+
 module.exports = {
   type: process.env.DB_TYPE,
   database: process.env.DB_DATABASE,
