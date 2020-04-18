@@ -28,7 +28,7 @@ export class CreatePaymentSources1586489517550 implements MigrationInterface {
         name: 'remark',
         type: 'varchar',
         length: '255',
-        isNullable: false,
+        isNullable: true,
         comment: '备注',
       },
       {

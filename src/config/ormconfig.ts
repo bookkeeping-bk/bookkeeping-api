@@ -19,6 +19,7 @@ module.exports = {
   entities: [path.resolve(__dirname, '..', 'models', '*')],
   migrations: [path.resolve(__dirname, '..', 'database', 'migrations', '*')],
   seeds: [path.resolve(__dirname, '..', 'database', 'seeds', '*')],
+  factories: [path.resolve(__dirname, '..', 'database', 'factories', '*')],
   cli: {
     entitiesDir: 'src/models',
     migrationsDir: 'src/database/migrations',
