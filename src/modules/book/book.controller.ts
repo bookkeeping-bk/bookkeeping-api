@@ -7,7 +7,7 @@ import { Controller, Get, Query, Param } from '@nestjs/common';
 import { ApiTags, ApiQuery, ApiParam, ApiOperation } from '@nestjs/swagger';
 import { BookService } from './book.service';
 
-@Controller('book')
+@Controller('books')
 @ApiTags('账本功能')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
