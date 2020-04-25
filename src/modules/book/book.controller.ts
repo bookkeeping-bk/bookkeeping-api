@@ -13,17 +13,20 @@ import {
   Put,
   Delete,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiQuery,
   ApiParam,
   ApiOperation,
-  ApiCreatedResponse,
+  ApiBearerAuth,
+  ApiResponse,
 } from '@nestjs/swagger';
 import { Book } from '@/models/book.entity';
 import { BookService } from './book.service';
 import { BookDto } from './book.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('books')
 @ApiTags('账本功能')
@@ -34,7 +37,9 @@ export class BookController {
   @ApiOperation({ summary: '获取账本列表' })
   @ApiQuery({ name: 'currentPage', type: 'number', example: 1 })
   @ApiQuery({ name: 'pageSize', type: 'number', example: 10 })
-  @ApiCreatedResponse({ type: Book })
+  @ApiResponse({ type: Book, status: 200 })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async findAll(@Query() queryParams) {
     return await this.bookService.findAll(queryParams);
   }
@@ -42,15 +47,18 @@ export class BookController {
   @Get(':id')
   @ApiOperation({ summary: '获取指定账本' })
   @ApiParam({ name: 'id', type: 'number' })
-  @ApiCreatedResponse({ type: Book })
+  @ApiResponse({ type: Book, status: 200 })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async findById(@Param('id') id) {
     return await this.bookService.findById(id);
   }
 
   @Post()
   @ApiOperation({ summary: '创建账本' })
-  @ApiCreatedResponse({ type: Book })
-  @ApiCreatedResponse({ type: Book })
+  @ApiResponse({ type: Book, status: 200 })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async createBook(@Body(ValidationPipe) book: BookDto) {
     return this.bookService.createBook(book);
   }
@@ -58,7 +66,9 @@ export class BookController {
   @Put(':id')
   @ApiOperation({ summary: '更新账本' })
   @ApiParam({ name: 'id', type: 'number' })
-  @ApiCreatedResponse({ type: Book })
+  @ApiResponse({ type: Book, status: 200 })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async updateById(@Param('id') id, @Body(ValidationPipe) book: BookDto) {
     return this.bookService.updateById(id, book);
   }
@@ -66,6 +76,8 @@ export class BookController {
   @Delete(':id')
   @ApiOperation({ summary: '删除账本' })
   @ApiParam({ name: 'id', type: 'number' })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   async deleteById(@Param('id') id) {
     return this.bookService.deleteById(id);
   }
