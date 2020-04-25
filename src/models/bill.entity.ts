@@ -8,7 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { BillType } from './bill_type.entity';
+import { BillCategory } from './bill_category.entity';
 import { PaymentSource } from './payment_source.entity';
 import { User } from './user.entity';
 
@@ -17,9 +17,9 @@ export class Bill {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => BillType)
+  @OneToOne(() => BillCategory)
   @JoinColumn({ name: 'bill_type_id' })
-  billType: BillType;
+  billCategory: BillCategory;
 
   @OneToOne(() => PaymentSource)
   @JoinColumn({ name: 'payment_source_id' })

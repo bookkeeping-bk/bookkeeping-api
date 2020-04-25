@@ -5,11 +5,11 @@
 
 import * as Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { BillType } from '../../models/bill_type.entity';
+import { BillCategory } from '../../models/bill_category.entity';
 
-define(BillType, (faker: typeof Faker) => {
-  const billType = new BillType();
-  billType.name = faker.name.title();
-  billType.type = 1;
-  return billType;
+define(BillCategory, (faker: typeof Faker) => {
+  const billCategory = new BillCategory();
+  billCategory.name = faker.name.title();
+  billCategory.type = 1;
+  return billCategory;
 });

@@ -6,9 +6,9 @@
 
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateBillTypes1586484771026 implements MigrationInterface {
+export class CreateBillCategorys1586484771026 implements MigrationInterface {
   private billTypesTable = new Table({
-    name: 'bill_types',
+    name: 'bill_categorys',
     columns: [
       {
         name: 'id',

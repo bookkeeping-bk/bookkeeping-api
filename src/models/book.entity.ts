@@ -3,6 +3,7 @@
  * @date: 2020-04-18 11:17:15
  */
 
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -11,7 +12,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'books' })
 export class Book {
