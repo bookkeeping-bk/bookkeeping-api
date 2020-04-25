@@ -18,13 +18,14 @@ export class AuthService {
   async login(user: User) {
     const { mobile, password } = user;
     const existUser = await this.userRepo.findOne({ where: { mobile } });
-    const isValidPssword = await existUser.comparePassword(password);
-
-    if (!existUser || !isValidPssword) {
+    if (!existUser) {
       throw new HttpException(
-        '用户名或密码错误',
+        '该手机号尚未注册',
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
+    }
+    if (!(await existUser.comparePassword(password))) {
+      throw new HttpException('密码错误', HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     // 更新登录IP和登录时间
