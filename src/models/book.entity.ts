@@ -11,21 +11,26 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: 'books' })
 export class Book {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty({ description: '账本名称' })
   @Column()
   name: string;
 
+  @ApiProperty({ description: '删除时间' })
   @DeleteDateColumn({ name: 'delete_at' })
   deleteAt: Date;
 
+  @ApiProperty({ description: '创建时间' })
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
+  @ApiProperty({ description: '更新时间' })
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }

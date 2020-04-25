@@ -3,10 +3,11 @@
  * @date: 2020-04-18 13:38:43
  */
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from '@/models/book.entity';
+import { BookDto } from './book.dto';
 
 @Injectable()
 export class BookService {
@@ -46,7 +47,38 @@ export class BookService {
    * 创建账本
    * @param book
    */
-  async createBook(book: Book) {
-    console.log(book);
+  async createBook(book: BookDto) {
+    const { name } = book;
+    const existBook = await this.bookRepo.findOne({ where: { name } });
+    if (existBook) {
+      throw new HttpException('账本已存在', HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+    return await this.bookRepo.save(await this.bookRepo.create(book));
+  }
+
+  /**
+   * 更新账本
+   * @param book
+   */
+  async updateById(id, book: BookDto) {
+    const isVerify = await this.bookRepo.findOne(id);
+    const { name } = book;
+    const existBook = await this.bookRepo.findOne({ where: { name } });
+    if (!isVerify) {
+      throw new HttpException('账本不存在', HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+    if (existBook) {
+      throw new HttpException('账本已存在', HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    await this.bookRepo.update(id, book);
+  }
+
+  async deleteById(id) {
+    const existBook = await this.bookRepo.findOne(id);
+    if (!existBook) {
+      throw new HttpException('账本不存在', HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+    await this.bookRepo.softDelete(id);
   }
 }
