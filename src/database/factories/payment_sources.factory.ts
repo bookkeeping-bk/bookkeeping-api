@@ -5,10 +5,10 @@
 
 import * as Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { PaymentSource } from '../../models/payment_source.entity';
+import { PaymentSources } from '../../models/payment_sources.entity';
 
-define(PaymentSource, (faker: typeof Faker) => {
-  const paymentSource = new PaymentSource();
+define(PaymentSources, (faker: typeof Faker) => {
+  const paymentSource = new PaymentSources();
   paymentSource.name = faker.name.title();
   return paymentSource;
 });

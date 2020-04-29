@@ -17,7 +17,7 @@ export class BookService {
 
   /**
    * 获取账本列表
-   * @param book
+   * @param queryParams
    */
   async findAll(queryParams: any = {}) {
     const { currentPage = 1, pageSize = 10 } = queryParams;

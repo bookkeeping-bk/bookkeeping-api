@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { BillCategory } from './bill_category.entity';
-import { PaymentSource } from './payment_source.entity';
+import { PaymentSources } from './payment_sources.entity';
 import { User } from './user.entity';
 
 @Entity({ name: 'bills' })
@@ -21,9 +21,9 @@ export class Bill {
   @JoinColumn({ name: 'bill_type_id' })
   billCategory: BillCategory;
 
-  @OneToOne(() => PaymentSource)
+  @OneToOne(() => PaymentSources)
   @JoinColumn({ name: 'payment_source_id' })
-  paymentSource: PaymentSource;
+  paymentSource: PaymentSources;
 
   @OneToOne(() => User)
   @JoinColumn({ name: 'user_id' })
