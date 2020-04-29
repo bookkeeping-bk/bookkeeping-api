@@ -18,7 +18,6 @@ import {
 import {
   ApiTags,
   ApiQuery,
-  ApiParam,
   ApiOperation,
   ApiBearerAuth,
   ApiResponse,
@@ -40,17 +39,16 @@ export class BookController {
   @ApiResponse({ type: Book, status: 200 })
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
-  async findAll(@Query() query) {
+  async findAll(@Query() query: object) {
     return await this.bookService.findAll(query);
   }
 
   @Get(':id')
   @ApiOperation({ summary: '获取账本详情' })
-  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({ type: Book, status: 200 })
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
-  async findById(@Param('id') id) {
+  async findById(@Param('id') id: number) {
     return await this.bookService.findById(id);
   }
 
@@ -65,20 +63,21 @@ export class BookController {
 
   @Put(':id')
   @ApiOperation({ summary: '更新账本' })
-  @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({ type: Book, status: 200 })
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
-  async updateById(@Param('id') id, @Body(ValidationPipe) bookDto: BookDto) {
+  async updateById(
+    @Param('id') id: number,
+    @Body(ValidationPipe) bookDto: BookDto,
+  ) {
     return await this.bookService.updateById(id, bookDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: '删除账本' })
-  @ApiParam({ name: 'id', type: 'number' })
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
-  async deleteById(@Param('id') id) {
+  async deleteById(@Param('id') id: number) {
     return await this.bookService.deleteById(id);
   }
 }

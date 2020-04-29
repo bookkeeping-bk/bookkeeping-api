@@ -50,7 +50,7 @@ export class BillCategoryService {
    * 创建账单分类
    * @param billCategoryDto
    */
-  async create(billCategoryDto) {
+  async create(billCategoryDto: BillCategoryDto) {
     const { name } = billCategoryDto;
     const existBillCategory = await this.billCategoryRepo.findOne({
       where: { name },
@@ -66,5 +66,48 @@ export class BillCategoryService {
     return await this.billCategoryRepo.save(
       await this.billCategoryRepo.create(billCategoryDto),
     );
+  }
+
+  /**
+   * 更新账单分类
+   * @param id
+   * @param billCategoryDto
+   */
+  async updateById(id: number, billCategoryDto: BillCategoryDto) {
+    const isVerify = await this.billCategoryRepo.findOne(id);
+    const { name } = billCategoryDto;
+    const existBillCategory = await this.billCategoryRepo.findOne({
+      where: { name },
+    });
+    if (!isVerify) {
+      throw new HttpException(
+        '账单分类不存在',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    if (existBillCategory) {
+      throw new HttpException(
+        '该账单分类已存在',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    await this.billCategoryRepo.update(id, billCategoryDto);
+  }
+
+  /**
+   * 删除账单分类
+   * @param id
+   */
+  async deleteById(id: number) {
+    const existBillCategory = await this.billCategoryRepo.findOne(id);
+    if (!existBillCategory) {
+      throw new HttpException(
+        '账单分类不存在',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+    await this.billCategoryRepo.softDelete(id);
   }
 }

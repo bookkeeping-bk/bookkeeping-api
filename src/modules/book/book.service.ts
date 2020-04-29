@@ -60,6 +60,7 @@ export class BookService {
 
   /**
    * 更新账本
+   * @param id
    * @param bookDto
    */
   async updateById(id: number, bookDto: BookDto) {
