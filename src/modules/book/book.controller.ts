@@ -29,7 +29,7 @@ import { BookDto } from './book.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('books')
-@ApiTags('账本功能')
+@ApiTags('账本')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
@@ -40,12 +40,12 @@ export class BookController {
   @ApiResponse({ type: Book, status: 200 })
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
-  async findAll(@Query() queryParams) {
-    return await this.bookService.findAll(queryParams);
+  async findAll(@Query() query) {
+    return await this.bookService.findAll(query);
   }
 
   @Get(':id')
-  @ApiOperation({ summary: '获取指定账本' })
+  @ApiOperation({ summary: '获取账本详情' })
   @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({ type: Book, status: 200 })
   @ApiBearerAuth()
@@ -59,8 +59,8 @@ export class BookController {
   @ApiResponse({ type: Book, status: 200 })
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
-  async createBook(@Body(ValidationPipe) book: BookDto) {
-    return this.bookService.createBook(book);
+  async create(@Body(ValidationPipe) bookDto: BookDto) {
+    return await this.bookService.create(bookDto);
   }
 
   @Put(':id')
@@ -69,8 +69,8 @@ export class BookController {
   @ApiResponse({ type: Book, status: 200 })
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
-  async updateById(@Param('id') id, @Body(ValidationPipe) book: BookDto) {
-    return this.bookService.updateById(id, book);
+  async updateById(@Param('id') id, @Body(ValidationPipe) bookDto: BookDto) {
+    return await this.bookService.updateById(id, bookDto);
   }
 
   @Delete(':id')
@@ -79,6 +79,6 @@ export class BookController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async deleteById(@Param('id') id) {
-    return this.bookService.deleteById(id);
+    return await this.bookService.deleteById(id);
   }
 }

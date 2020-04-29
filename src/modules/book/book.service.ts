@@ -16,12 +16,14 @@ export class BookService {
   ) {}
 
   /**
-   * 获取账本
+   * 获取账本列表
    * @param book
    */
   async findAll(queryParams: any = {}) {
-    const { currentPage = 1, pageSize = 5 } = queryParams;
-    const query = this.bookRepo.createQueryBuilder().orderBy(`book.id`, 'DESC');
+    const { currentPage = 1, pageSize = 10 } = queryParams;
+    const query = this.bookRepo
+      .createQueryBuilder()
+      .orderBy(`book.created_at`, 'DESC');
 
     query.skip((currentPage - 1) * pageSize);
     query.take(pageSize);
@@ -36,33 +38,33 @@ export class BookService {
   }
 
   /**
-   * 获取指定账本
+   * 获取账本详情
    * @param id
    */
-  async findById(id) {
+  async findById(id: number) {
     return await this.bookRepo.findOne(id);
   }
 
   /**
    * 创建账本
-   * @param book
+   * @param bookDto
    */
-  async createBook(book: BookDto) {
-    const { name } = book;
+  async create(bookDto: BookDto) {
+    const { name } = bookDto;
     const existBook = await this.bookRepo.findOne({ where: { name } });
     if (existBook) {
       throw new HttpException('账本已存在', HttpStatus.UNPROCESSABLE_ENTITY);
     }
-    return await this.bookRepo.save(await this.bookRepo.create(book));
+    return await this.bookRepo.save(await this.bookRepo.create(bookDto));
   }
 
   /**
    * 更新账本
-   * @param book
+   * @param bookDto
    */
-  async updateById(id, book: BookDto) {
+  async updateById(id: number, bookDto: BookDto) {
     const isVerify = await this.bookRepo.findOne(id);
-    const { name } = book;
+    const { name } = bookDto;
     const existBook = await this.bookRepo.findOne({ where: { name } });
     if (!isVerify) {
       throw new HttpException('账本不存在', HttpStatus.UNPROCESSABLE_ENTITY);
@@ -71,10 +73,14 @@ export class BookService {
       throw new HttpException('账本已存在', HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    await this.bookRepo.update(id, book);
+    await this.bookRepo.update(id, bookDto);
   }
 
-  async deleteById(id) {
+  /**
+   * 删除账本
+   * @param id
+   */
+  async deleteById(id: number) {
     const existBook = await this.bookRepo.findOne(id);
     if (!existBook) {
       throw new HttpException('账本不存在', HttpStatus.UNPROCESSABLE_ENTITY);
