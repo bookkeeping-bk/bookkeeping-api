@@ -22,11 +22,11 @@ export class BillCategory {
   @Column()
   name: string;
 
-  @ApiProperty({ description: '账单分类类型（1:收入 2:支出）' })
+  @ApiProperty({ description: '账单分类类型（1:收入 2:支出）', default: 1 })
   @Column()
   type: number;
 
-  @ApiProperty({ description: '删除时间' })
+  @ApiProperty({ description: '删除时间', default: '' })
   @DeleteDateColumn({ name: 'delete_at' })
   deleteAt: Date;
 

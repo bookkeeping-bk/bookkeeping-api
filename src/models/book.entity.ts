@@ -22,7 +22,7 @@ export class Book {
   @Column()
   name: string;
 
-  @ApiProperty({ description: '删除时间' })
+  @ApiProperty({ description: '删除时间', default: '' })
   @DeleteDateColumn({ name: 'delete_at' })
   deleteAt: Date;
 

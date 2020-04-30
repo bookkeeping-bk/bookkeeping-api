@@ -17,7 +17,7 @@ export class PaymentSources {
   @Column()
   name: string;
 
-  @ApiProperty({ description: '备注' })
+  @ApiProperty({ description: '备注', default: '' })
   @Column()
   remark: string;
 
