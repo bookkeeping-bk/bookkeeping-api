@@ -25,6 +25,13 @@ export class CreateUsers1586419973378 implements MigrationInterface {
         comment: '用户名',
       },
       {
+        name: 'nickname',
+        type: 'varchar',
+        length: '32',
+        isNullable: true,
+        comment: '昵称',
+      },
+      {
         name: 'password',
         type: 'varchar',
         length: '64',
@@ -69,13 +76,13 @@ export class CreateUsers1586419973378 implements MigrationInterface {
       {
         name: 'created_at',
         type: 'timestamp',
-        isNullable: true,
+        isNullable: false,
         comment: '创建时间',
       },
       {
         name: 'updated_at',
         type: 'timestamp',
-        isNullable: true,
+        isNullable: false,
         comment: '更新时间',
       },
     ],

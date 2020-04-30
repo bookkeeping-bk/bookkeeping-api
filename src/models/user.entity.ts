@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -37,30 +38,42 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty({ description: '用户名' })
   @Column()
   username: string;
+
+  @ApiProperty({ description: '昵称' })
+  @Column({ default: '' })
+  nickname: string;
 
   @Column()
   password: string;
 
+  @ApiProperty({ description: '密码' })
   @Column()
   mobile: string;
 
-  @Column()
+  @ApiProperty({ description: '头像' })
+  @Column({ default: '' })
   avatar: string;
 
-  @Column({ name: 'login_ip' })
+  @ApiProperty({ description: '登录IP' })
+  @Column({ name: 'login_ip', default: '' })
   loginIp: string;
 
-  @Column({ name: 'register_ip' })
+  @ApiProperty({ description: '注册IP' })
+  @Column({ name: 'register_ip', default: '' })
   registerIp: string;
 
-  @Column({ name: 'latest_online_at' })
+  @ApiProperty({ description: '最后在线时间' })
+  @Column({ name: 'latest_online_at', default: '' })
   latestOnlineAt: Date;
 
+  @ApiProperty({ description: '创建时间' })
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
+  @ApiProperty({ description: '更新时间' })
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 

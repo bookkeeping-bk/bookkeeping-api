@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { User } from '@/models/user.entity';
+import { LoginDto, RegisterDto } from './auth.entity';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
    * 用户登录
    * @param user
    */
-  async login(user: User) {
+  async login(user: LoginDto) {
     const { mobile, password } = user;
     const existUser = await this.userRepo.findOne({ where: { mobile } });
     if (!existUser) {
@@ -29,10 +30,12 @@ export class AuthService {
     }
 
     // 更新登录IP和登录时间
-    await this.userRepo.update(existUser.id, {
-      loginIp: await User.getPublicIPv4(),
-      latestOnlineAt: new Date(),
-    });
+    await this.userRepo.save(
+      await this.userRepo.merge(existUser, {
+        loginIp: await User.getPublicIPv4(),
+        latestOnlineAt: new Date(),
+      }),
+    );
 
     // 删除密码返回前端
     delete existUser.password;
@@ -50,7 +53,7 @@ export class AuthService {
    * 用户注册
    * @param user
    */
-  async register(user: User) {
+  async register(user: RegisterDto) {
     const { mobile } = user;
     const existUser = await this.userRepo.findOne({ where: { mobile } });
     if (existUser) {
@@ -58,6 +61,14 @@ export class AuthService {
     }
     const newUser = await this.userRepo.create(user);
     await this.userRepo.save(newUser);
+  }
+
+  /**
+   * 微信登录
+   * @param wechat
+   */
+  async wechatLogin(wechat) {
+    console.log(wechat);
   }
 
   /**

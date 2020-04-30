@@ -1,15 +1,8 @@
-import {
-  Controller,
-  Post,
-  Body,
-  ValidationPipe,
-  Get,
-  UseGuards,
-} from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBody, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { RegisterDto, LoginDto } from './auth.entity';
+import { User } from '@/models/user.entity';
 
 @Controller('auth')
 @ApiTags('用户授权')
@@ -19,15 +12,9 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: '用户登录' })
   @ApiBody({ type: LoginDto })
+  @ApiResponse({ type: User, status: 200 })
   async login(@Body(ValidationPipe) user: LoginDto) {
     return await this.authService.login(user);
-  }
-
-  //TODO: 微信授权登录
-  @Post('wechat-login')
-  @ApiOperation({ summary: '微信授权登录' })
-  wechatLogin(@Body() dto) {
-    return dto;
   }
 
   @Post('register')
@@ -37,11 +24,9 @@ export class AuthController {
     return await this.authService.register(user);
   }
 
-  @Get('test-jwt')
-  @ApiOperation({ summary: '测试JWT', deprecated: true })
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard())
-  async getUserInfo() {
-    return await this.authService.testJwt();
+  @Post('wechat-login')
+  @ApiOperation({ summary: '微信授权登录' })
+  async wechatLogin(@Body() dto) {
+    return await this.authService.wechatLogin(dto);
   }
 }
