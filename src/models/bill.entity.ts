@@ -32,7 +32,7 @@ export class Bill {
   @Column()
   money: number;
 
-  @Column()
+  @Column({ name: 'record_at' })
   recordAt: Date;
 
   @Column()
