@@ -12,6 +12,6 @@ export class PaymentSourcesDto {
   @IsString()
   name: string;
 
-  @ApiProperty({ description: '备注' })
+  @ApiProperty({ description: '备注', required: false })
   remark: string;
 }
