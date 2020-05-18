@@ -6,6 +6,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Utils } from '@/utils/index';
 import { Bill } from '@/models/bill.entity';
 import { BillDto } from './bill.dto';
 import { BillCategoryService } from '../bill-category/bill-category.service';
@@ -31,14 +32,17 @@ export class BillService {
       .leftJoinAndSelect('bill.billCategory', 'billCategory')
       .leftJoinAndSelect('bill.paymentSource', 'paymentSource')
       .leftJoinAndSelect('bill.user', 'user')
-      .orderBy(`bill.createdAt`, 'DESC');
+      .orderBy('bill.createdAt', 'DESC');
 
     query.skip((currentPage - 1) * pageSize);
     query.take(pageSize);
 
     const [list, totalPage] = await query.getManyAndCount();
     return {
-      list,
+      list: list.map(item => ({
+        ...item,
+        money: Utils.moneyFormat(item.money, true),
+      })),
       currentPage: currentPage | 0,
       pageSize: pageSize | 0,
       totalPage,
@@ -50,7 +54,9 @@ export class BillService {
    * @param id
    */
   async findById(id: number) {
-    return await this.billRepo.findOne(id);
+    const bill = await this.billRepo.findOne(id);
+    bill.money = Utils.moneyFormat(bill.money, true);
+    return bill;
   }
 
   /**
@@ -120,7 +126,7 @@ export class BillService {
       paymentSource: existPaymentSource,
       // FIXME: 优化
       user: { id: 1 },
-      money: billDto.money,
+      money: Utils.moneyFormat(billDto.money),
       images: billDto.images,
       remark: billDto.remark,
     };

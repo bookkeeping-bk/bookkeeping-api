@@ -9,18 +9,18 @@ export class BillDto {
   @ApiProperty({ description: '账单分类ID' })
   billCategoryId: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: '支付来源ID' })
   paymentSourceId: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: '记录用户ID' })
   userId: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: '金额' })
   money: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: '图片' })
   images: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: '备注' })
   remark: string;
 }
