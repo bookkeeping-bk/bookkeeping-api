@@ -7,11 +7,13 @@ import { BookModule } from './modules/book/book.module';
 import { BillModule } from './modules/bill/bill.module';
 import { BillCategoryModule } from './modules/bill-category/bill-category.module';
 import { PaymentSourcesModule } from './modules/payment-sources/payment-sources.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(ormconfig),
     AuthModule,
+    UserModule,
     BookModule,
     BillModule,
     BillCategoryModule,

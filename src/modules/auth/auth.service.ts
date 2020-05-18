@@ -3,12 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { User } from '@/models/user.entity';
-import { LoginDto, RegisterDto } from './auth.entity';
+import { LoginDto } from './auth.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User) private readonly userRepo: Repository<User>,
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -50,32 +51,10 @@ export class AuthService {
   }
 
   /**
-   * 用户注册
-   * @param user
-   */
-  async register(user: RegisterDto) {
-    const { mobile } = user;
-    const existUser = await this.userRepo.findOne({ where: { mobile } });
-    if (existUser) {
-      throw new HttpException('手机号已存在', HttpStatus.UNPROCESSABLE_ENTITY);
-    }
-    const newUser = await this.userRepo.create(user);
-    await this.userRepo.save(newUser);
-  }
-
-  /**
    * 微信登录
    * @param wechat
    */
   async wechatLogin(wechat) {
     console.log(wechat);
-  }
-
-  /**
-   * 测试jwt功能
-   */
-  async testJwt() {
-    const user = await this.userRepo.findOne(2);
-    return user;
   }
 }

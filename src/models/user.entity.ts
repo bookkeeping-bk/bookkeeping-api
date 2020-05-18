@@ -49,7 +49,7 @@ export class User {
   @Column()
   password: string;
 
-  @ApiProperty({ description: '密码' })
+  @ApiProperty({ description: '手机号' })
   @Column()
   mobile: string;
 

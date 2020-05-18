@@ -11,6 +11,7 @@ import { Bill } from '@/models/bill.entity';
 import { BillDto } from './bill.dto';
 import { BillCategoryService } from '../bill-category/bill-category.service';
 import { PaymentSourcesService } from '../payment-sources/payment-sources.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class BillService {
@@ -18,7 +19,8 @@ export class BillService {
     @InjectRepository(Bill)
     private readonly billRepo: Repository<Bill>,
     private readonly billCategoryService: BillCategoryService,
-    private readonly paymentSource: PaymentSourcesService,
+    private readonly paymentSourcesService: PaymentSourcesService,
+    private readonly userService: UserService,
   ) {}
 
   /**
@@ -65,7 +67,7 @@ export class BillService {
    */
   async create(billDto: BillDto) {
     const createBill = await this.editBill(billDto);
-    await this.billRepo.create(await this.billRepo.save(createBill));
+    return await this.billRepo.save(await this.billRepo.create(createBill));
   }
 
   /**
@@ -103,9 +105,10 @@ export class BillService {
     const existBillCategory = await this.billCategoryService.findById(
       billDto.billCategoryId,
     );
-    const existPaymentSource = await this.paymentSource.findById(
+    const existPaymentSource = await this.paymentSourcesService.findById(
       billDto.paymentSourceId,
     );
+    const existUser = await this.userService.findById(billDto.userId);
 
     if (!existBillCategory) {
       throw new HttpException(
@@ -121,11 +124,14 @@ export class BillService {
       );
     }
 
+    if (!existUser) {
+      throw new HttpException('该用户不存在', HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
     return {
       billCategory: existBillCategory,
       paymentSource: existPaymentSource,
-      // FIXME: 优化
-      user: { id: 1 },
+      user: existUser,
       money: Utils.moneyFormat(billDto.money),
       images: billDto.images,
       remark: billDto.remark,
