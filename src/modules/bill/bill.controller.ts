@@ -25,8 +25,7 @@ export class BillController {
 
   @Get()
   @ApiOperation({ summary: '获取账单列表' })
-  @ApiQuery({ name: 'currentPage', type: 'number', example: 1 })
-  @ApiQuery({ name: 'pageSize', type: 'number', example: 10 })
+  @ApiQuery({ name: 'createdAt', type: 'string' })
   @ApiResponse({ type: Bill, status: 200 })
   async findAll(@Query() query: object) {
     return await this.billService.findAll(query);

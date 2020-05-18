@@ -37,10 +37,6 @@ export class Bill {
   @Column()
   money: number;
 
-  @ApiProperty({ description: '记录时间' })
-  @Column({ name: 'record_at' })
-  recordAt: Date;
-
   @ApiProperty({ description: '账单图片' })
   @Column({ default: '' })
   images: string;

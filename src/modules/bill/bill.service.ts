@@ -28,7 +28,7 @@ export class BillService {
    * @param queryParams
    */
   async findAll(queryParams: any = {}) {
-    const { currentPage = 1, pageSize = 10 } = queryParams;
+    const { ...params } = queryParams;
     const query = this.billRepo
       .createQueryBuilder('bill')
       .leftJoinAndSelect('bill.billCategory', 'billCategory')
@@ -36,8 +36,13 @@ export class BillService {
       .leftJoinAndSelect('bill.user', 'user')
       .orderBy('bill.createdAt', 'DESC');
 
-    query.skip((currentPage - 1) * pageSize);
-    query.take(pageSize);
+    if (params) {
+      Object.keys(params).forEach(key => {
+        query
+          .andWhere(`bill.${key} LIKE :${key}`)
+          .setParameter(`${key}`, `%${params[key]}%`);
+      });
+    }
 
     const [list, totalPage] = await query.getManyAndCount();
     return {
@@ -45,8 +50,6 @@ export class BillService {
         ...item,
         money: Utils.moneyFormat(item.money, true),
       })),
-      currentPage: currentPage | 0,
-      pageSize: pageSize | 0,
       totalPage,
     };
   }

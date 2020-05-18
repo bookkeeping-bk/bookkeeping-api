@@ -43,12 +43,6 @@ export class CreateBills1586484980383 implements MigrationInterface {
         comment: '账单金额 单位:分',
       },
       {
-        name: 'record_at',
-        type: 'timestamp',
-        isNullable: true,
-        comment: '记录时间',
-      },
-      {
         name: 'images',
         type: 'varchar',
         length: '255',
