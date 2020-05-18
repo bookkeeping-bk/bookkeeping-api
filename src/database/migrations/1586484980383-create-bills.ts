@@ -27,20 +27,20 @@ export class CreateBills1586484980383 implements MigrationInterface {
         name: 'payment_source_id',
         type: 'integer',
         isNullable: false,
-        comment: '支付来源',
+        comment: '支付来源ID',
       },
       {
         name: 'user_id',
         type: 'integer',
         isNullable: false,
-        comment: '记录人',
+        comment: '记录人ID',
       },
       {
         name: 'money',
         type: 'integer',
         isNullable: false,
         default: 0,
-        comment: '记录金额 单位:分',
+        comment: '账单金额 单位:分',
       },
       {
         name: 'record_at',
@@ -53,7 +53,7 @@ export class CreateBills1586484980383 implements MigrationInterface {
         type: 'varchar',
         length: '255',
         isNullable: false,
-        comment: '图片',
+        comment: '账单图片',
       },
       {
         name: 'remark',

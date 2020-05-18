@@ -14,5 +14,6 @@ import { AuthModule } from '../auth/auth.module';
   imports: [TypeOrmModule.forFeature([BillCategory]), AuthModule],
   controllers: [BillCategoryController],
   providers: [BillCategoryService],
+  exports: [BillCategoryService],
 })
 export class BillCategoryModule {}

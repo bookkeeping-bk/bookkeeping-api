@@ -14,5 +14,6 @@ import { AuthModule } from '../auth/auth.module';
   imports: [TypeOrmModule.forFeature([PaymentSources]), AuthModule],
   controllers: [PaymentSourcesController],
   providers: [PaymentSourcesService],
+  exports: [PaymentSourcesService],
 })
 export class PaymentSourcesModule {}
