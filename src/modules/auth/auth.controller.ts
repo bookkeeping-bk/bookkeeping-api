@@ -22,8 +22,4 @@ export class AuthController {
   async wechatLogin(@Body() dto) {
     return await this.authService.wechatLogin(dto);
   }
-
-  @Delete('logout')
-  @ApiOperation({ summary: 'todo 注销登录' })
-  async logout() {}
 }
