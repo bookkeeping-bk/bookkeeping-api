@@ -25,3 +25,20 @@ export class RegisterDto {
   @IsString()
   username: string;
 }
+
+/**
+ * 修改密码
+ */
+export class ChangePasswordDto {
+  @ApiProperty({ description: '原密码' })
+  @IsNotEmpty({ message: '原密码不能为空' })
+  oldPassword: string;
+
+  @ApiProperty({ description: '新密码' })
+  @IsNotEmpty({ message: '新密码不能为空' })
+  newPassword: string;
+
+  @ApiProperty({ description: '确认新密码' })
+  @IsNotEmpty({ message: '再次输入新密码' })
+  checkPassword: string;
+}
