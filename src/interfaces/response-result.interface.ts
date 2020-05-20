@@ -5,8 +5,6 @@
  */
 
 export interface ResponseResult {
-  code: number;
   message: string;
   data: any;
-  success: boolean;
 }

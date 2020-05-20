@@ -23,17 +23,10 @@ export class TransformInterceptor<T>
     return next.handle().pipe(
       map(data => {
         const ctx = context.switchToHttp();
-        const response = ctx.getResponse();
         const request = ctx.getRequest();
 
-        const statusCode = response.statusCode;
         const url = request.originalUrl;
-        const successResponse: ResponseResult = {
-          code: statusCode,
-          data,
-          message: '',
-          success: true,
-        };
+        const successResponse: ResponseResult = { data, message: '' };
         responseLogger.info(url, successResponse);
         return successResponse;
       }),

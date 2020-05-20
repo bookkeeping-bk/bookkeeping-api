@@ -23,10 +23,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const message: any = exception.message; // 错误信息
 
     const errorResponse: ResponseResult = {
-      code: status,
       data: status === 400 ? exception.getResponse() : null,
       message,
-      success: false,
     };
 
     // 设置返回的状态码、请求头、发送错误信息
