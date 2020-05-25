@@ -138,6 +138,7 @@ export class BillService {
       money: Utils.moneyFormat(billDto.money),
       images: billDto.images,
       remark: billDto.remark,
+      recordAt: billDto.recordAt,
     };
   }
 }

@@ -28,10 +28,14 @@ export class Bill {
   @JoinColumn({ name: 'payment_source_id' })
   paymentSource: PaymentSources;
 
-  @ApiProperty({ description: '创建用户' })
+  @ApiProperty({ description: '记录用户' })
   @OneToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @ApiProperty({ description: '记录时间' })
+  @Column({ name: 'record_at' })
+  recordAt: Date;
 
   @ApiProperty({ description: '账单金额' })
   @Column()
