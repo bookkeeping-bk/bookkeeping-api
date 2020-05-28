@@ -2,18 +2,20 @@ import 'dotenv/config';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { TransformInterceptor } from './interceptors/transform.interceptor';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { AppModule } from './app.module';
 
 const port = process.env.APP_PORT || 3000;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.enableCors();
   app.setGlobalPrefix(process.env.APP_VERSION_PREFIX);
-  // app.useGlobalPipes(new ValidationPipe());
+  app.useStaticAssets('uploads', { prefix: '/uploads' });
   app.useGlobalInterceptors(new TransformInterceptor());
-  app.useGlobalFilters(new HttpExceptionFilter());
+  // app.useGlobalFilters(new HttpExceptionFilter()); 全局验证管道
 
   const options = new DocumentBuilder()
     .setTitle(`${process.env.APP_NAME}后台API`)

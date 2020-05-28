@@ -8,6 +8,9 @@ data
 # .env
 .env
 
+# uploads
+uploads
+
 # Logs
 logs
 *.log
