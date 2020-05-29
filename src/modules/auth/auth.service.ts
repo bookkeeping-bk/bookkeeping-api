@@ -49,12 +49,4 @@ export class AuthService {
       user: { ...existUser },
     };
   }
-
-  /**
-   * 微信登录
-   * @param wechat
-   */
-  async wechatLogin(wechat) {
-    console.log(wechat);
-  }
 }

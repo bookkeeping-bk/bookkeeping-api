@@ -16,10 +16,4 @@ export class AuthController {
   async login(@Body(ValidationPipe) user: LoginDto) {
     return await this.authService.login(user);
   }
-
-  @Post('wechat-login')
-  @ApiOperation({ summary: 'todo 微信登录' })
-  async wechatLogin(@Body() dto) {
-    return await this.authService.wechatLogin(dto);
-  }
 }
