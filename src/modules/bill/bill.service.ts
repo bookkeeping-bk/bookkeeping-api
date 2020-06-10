@@ -28,13 +28,15 @@ export class BillService {
    * @param queryParams
    */
   async findAll(queryParams: any = {}) {
-    const { ...params } = queryParams;
+    const { currentPage = 1, pageSize = 10, ...params } = queryParams;
     const query = this.billRepo
       .createQueryBuilder('bill')
       .leftJoinAndSelect('bill.billCategory', 'billCategory')
       .leftJoinAndSelect('bill.paymentSource', 'paymentSource')
       .leftJoinAndSelect('bill.user', 'user')
-      .orderBy('bill.createdAt', 'DESC');
+      .orderBy('bill.createdAt', 'DESC')
+      .take(pageSize)
+      .skip((currentPage - 1) * pageSize);
 
     if (params) {
       Object.keys(params).forEach(key => {
@@ -44,12 +46,19 @@ export class BillService {
       });
     }
 
-    const [list, totalPage] = await query.getManyAndCount();
+    const [bills, totalPage] = await query.getManyAndCount();
+
     return {
-      list: list.map(item => ({
-        ...item,
-        money: Utils.moneyFormat(item.money, true),
-      })),
+      list: bills.map(bill => {
+        delete bill.user.password;
+        return {
+          ...bill,
+          money: Utils.moneyFormat(bill.money, true).toFixed(2),
+        };
+      }),
+      ...(await this.getPayments(query)),
+      currentPage: currentPage | 0,
+      pageSize: pageSize | 0,
       totalPage,
     };
   }
@@ -59,9 +68,15 @@ export class BillService {
    * @param id
    */
   async findById(id: number) {
-    const bill = await this.billRepo.findOne(id);
-    bill.money = Utils.moneyFormat(bill.money, true);
-    return bill;
+    const query = this.billRepo
+      .createQueryBuilder('bill')
+      .leftJoinAndSelect('bill.billCategory', 'billCategory')
+      .leftJoinAndSelect('bill.paymentSource', 'paymentSource')
+      .leftJoinAndSelect('bill.user', 'user')
+      .where('bill.id = :id', { id });
+    const bill = await query.getOne();
+    delete bill.user.password;
+    return { ...bill, money: Utils.moneyFormat(bill.money, true).toFixed(2) };
   }
 
   /**
@@ -139,6 +154,29 @@ export class BillService {
       images: billDto.images,
       remark: billDto.remark,
       recordAt: billDto.recordAt,
+    };
+  }
+
+  /**
+   * 获取当月收支总和
+   * @param query
+   */
+  async getPayments(query) {
+    const types = [
+      { name: 'revenue', type: 1 },
+      { name: 'expend', type: 2 },
+    ];
+    const payments = types.map(async type => {
+      return await query
+        .andWhere('billCategory.type = :type', { type: type.type })
+        .select('SUM(bill.money)', `${type.name}`)
+        .getRawOne();
+    });
+    const [revenue, expend] = await Promise.all(payments);
+
+    return {
+      revenue: Utils.moneyFormat(revenue.revenue, true).toFixed(2),
+      expend: Utils.moneyFormat(expend.expend, true).toFixed(2),
     };
   }
 }
