@@ -9,6 +9,7 @@ import { BookModule } from './modules/book/book.module';
 import { BillModule } from './modules/bill/bill.module';
 import { BillCategoryModule } from './modules/bill-category/bill-category.module';
 import { PaymentSourcesModule } from './modules/payment-sources/payment-sources.module';
+import { ReportModule } from './modules/report/report.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { PaymentSourcesModule } from './modules/payment-sources/payment-sources.
     BillModule,
     BillCategoryModule,
     PaymentSourcesModule,
+    ReportModule,
   ],
   controllers: [],
   providers: [],
