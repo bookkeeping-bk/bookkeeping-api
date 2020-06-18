@@ -21,7 +21,6 @@ export class CreateBillCategorys1586484771026 implements MigrationInterface {
         name: 'name',
         type: 'varchar',
         length: '32',
-        isUnique: true,
         isNullable: false,
         comment: '账单分类名称',
       },

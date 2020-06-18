@@ -10,7 +10,20 @@ import { PaymentSources } from '../../models/payment_sources.entity';
 
 export default class BillTypeSeeder implements Seeder {
   async run(factory: Factory, connection: Connection) {
-    await factory(PaymentSources)().createMany(10);
+    await connection
+      .createQueryBuilder()
+      .insert()
+      .into(PaymentSources)
+      .values([
+        { name: '支付宝' },
+        { name: '微信' },
+        { name: '现金' },
+        { name: '招商银行' },
+        { name: '工商银行' },
+        { name: '农业银行' },
+        { name: '农村信用社' },
+      ])
+      .execute();
     Logger.log('支付来源表初始化完成', 'Seeder');
   }
 }

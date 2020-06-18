@@ -10,7 +10,13 @@ import { Book } from '../../models/book.entity';
 
 export default class BookSeeder implements Seeder {
   async run(factory: Factory, connection: Connection) {
-    await factory(Book)().createMany(10);
+    // await factory(Book)().createMany(10);
+    await connection
+      .createQueryBuilder()
+      .insert()
+      .into(Book)
+      .values([{ name: '默认账本' }])
+      .execute();
     Logger.log('账本表初始化完成', 'Seeder');
   }
 }
