@@ -12,6 +12,7 @@ import { BillCategoryModule } from '../bill-category/bill-category.module';
 import { PaymentSourcesModule } from '../payment-sources/payment-sources.module';
 import { UserModule } from '../user/user.module';
 import { AuthModule } from '../auth/auth.module';
+import { BookModule } from '../book/book.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthModule } from '../auth/auth.module';
     BillCategoryModule,
     PaymentSourcesModule,
     UserModule,
+    BookModule,
   ],
   controllers: [BillController],
   providers: [BillService],

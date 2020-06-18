@@ -1,3 +1,9 @@
+/**
+ * @author: YouJie
+ * @date: 2020-04-18 17:22:42
+ */
+
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -11,7 +17,7 @@ import {
 import { BillCategory } from './bill_category.entity';
 import { PaymentSources } from './payment_sources.entity';
 import { User } from './user.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { Book } from './book.entity';
 
 @Entity({ name: 'bills' })
 export class Bill {
@@ -32,6 +38,11 @@ export class Bill {
   @OneToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @ApiProperty({ description: '账本' })
+  @OneToOne(() => Book)
+  @JoinColumn({ name: 'book_id' })
+  book: Book;
 
   @ApiProperty({ description: '记录时间' })
   @Column({ name: 'record_at' })

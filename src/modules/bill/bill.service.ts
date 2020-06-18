@@ -12,6 +12,7 @@ import { BillDto } from './bill.dto';
 import { BillCategoryService } from '../bill-category/bill-category.service';
 import { PaymentSourcesService } from '../payment-sources/payment-sources.service';
 import { UserService } from '../user/user.service';
+import { BookService } from '../book/book.service';
 
 @Injectable()
 export class BillService {
@@ -21,6 +22,7 @@ export class BillService {
     private readonly billCategoryService: BillCategoryService,
     private readonly paymentSourcesService: PaymentSourcesService,
     private readonly userService: UserService,
+    private readonly bookService: BookService,
   ) {}
 
   /**
@@ -34,6 +36,7 @@ export class BillService {
       .leftJoinAndSelect('bill.billCategory', 'billCategory')
       .leftJoinAndSelect('bill.paymentSource', 'paymentSource')
       .leftJoinAndSelect('bill.user', 'user')
+      .leftJoinAndSelect('bill.book', 'book')
       .orderBy('bill.createdAt', 'DESC')
       .take(pageSize)
       .skip((currentPage - 1) * pageSize);
@@ -73,6 +76,7 @@ export class BillService {
       .leftJoinAndSelect('bill.billCategory', 'billCategory')
       .leftJoinAndSelect('bill.paymentSource', 'paymentSource')
       .leftJoinAndSelect('bill.user', 'user')
+      .leftJoinAndSelect('bill.book', 'book')
       .where('bill.id = :id', { id });
     const bill = await query.getOne();
     delete bill.user.password;
@@ -127,6 +131,7 @@ export class BillService {
       billDto.paymentSourceId,
     );
     const existUser = await this.userService.findById(billDto.userId);
+    const existBook = await this.bookService.findById(billDto.bookId);
 
     if (!existBillCategory) {
       throw new HttpException(
@@ -146,10 +151,15 @@ export class BillService {
       throw new HttpException('该用户不存在', HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    if (!existBook) {
+      throw new HttpException('账本不存在', HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
     return {
       billCategory: existBillCategory,
       paymentSource: existPaymentSource,
       user: existUser,
+      book: existBook,
       money: Utils.moneyFormat(billDto.money),
       images: billDto.images,
       remark: billDto.remark,

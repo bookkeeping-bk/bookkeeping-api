@@ -36,6 +36,12 @@ export class CreateBills1586484980383 implements MigrationInterface {
         comment: '记录人ID',
       },
       {
+        name: 'book_id',
+        type: 'integer',
+        isNullable: false,
+        comment: '账本ID',
+      },
+      {
         name: 'record_at',
         type: 'timestamp',
         isNullable: true,

@@ -15,6 +15,9 @@ export class BillDto {
   @ApiProperty({ description: '记录用户ID' })
   userId: number;
 
+  @ApiProperty({ description: '账本ID' })
+  bookId: number;
+
   @ApiProperty({ description: '记录时间' })
   recordAt: Date;
 
