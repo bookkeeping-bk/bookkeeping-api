@@ -6,5 +6,5 @@
 
 export interface ResponseResult {
   message: string;
-  data: any;
+  meta: any;
 }
