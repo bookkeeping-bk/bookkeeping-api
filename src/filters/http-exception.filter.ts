@@ -23,7 +23,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const message: any = exception.message; // 错误信息
 
     const errorResponse: ResponseResult = {
-      data: status === 400 ? exception.getResponse() : null,
+      meta: status === 400 ? exception.getResponse() : null,
       message,
     };
 

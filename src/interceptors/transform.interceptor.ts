@@ -10,7 +10,7 @@ import { ResponseResult } from '@/interfaces/response-result.interface';
 import { responseLogger } from '@/utils/logger';
 
 interface Response<T> {
-  data: T;
+  meta: T;
 }
 
 @Injectable()
@@ -21,12 +21,12 @@ export class TransformInterceptor<T>
     next: CallHandler<T>,
   ): Observable<Response<T>> {
     return next.handle().pipe(
-      map(data => {
+      map(meta => {
         const ctx = context.switchToHttp();
         const request = ctx.getRequest();
 
         const url = request.originalUrl;
-        const successResponse: ResponseResult = { data, message: '' };
+        const successResponse: ResponseResult = { meta, message: '' };
         responseLogger.info(url, successResponse);
         return successResponse;
       }),
