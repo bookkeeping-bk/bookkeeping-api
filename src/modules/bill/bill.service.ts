@@ -182,11 +182,17 @@ export class BillService {
         .select('SUM(bill.money)', `${type.name}`)
         .getRawOne();
     });
-    const [revenue, expend] = await Promise.all(payments);
+
+    const [_revenue, _expend] = await Promise.all(payments);
+    const { revenue } = _revenue;
+    const { expend } = _expend;
 
     return {
-      revenue: Utils.moneyFormat(revenue.revenue, true).toFixed(2),
-      expend: Utils.moneyFormat(expend.expend, true).toFixed(2),
+      monthInfo: {
+        revenue: Utils.moneyFormat(revenue, true).toFixed(2),
+        expend: Utils.moneyFormat(expend, true).toFixed(2),
+        balance: Utils.moneyFormat(revenue - expend, true).toFixed(2),
+      },
     };
   }
 }
