@@ -6,11 +6,11 @@
 # 安装依赖
 yarn
 
-# 运行开发环境
-yarn serve
-
 # 配置.env
 cp .env.example .env
+
+# 运行开发环境
+yarn serve
 
 # 创建一个迁移文件，指定类名。会创建到src/database/migrations目录下
 yarn migration:create CreateUser
@@ -29,3 +29,5 @@ yarn seed:run
 ```
 
 ## 程序部署
+
+使用 GitHub Actions 打包 Docker 镜像推送到阿里云
