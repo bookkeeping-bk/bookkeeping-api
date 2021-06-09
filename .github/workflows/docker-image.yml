@@ -1,9 +1,15 @@
 name: Docker Image CI
 
+# 监听master分支
+# on:
+#   push:
+#     branches:
+#       - master
+
 on:
   push:
-    branches:
-      - master
+    tags:
+      - v*
 
 jobs:
   build:
@@ -17,6 +23,6 @@ jobs:
         run: |
           cat .env.example >> .env
           sudo docker login --username=${aliyun_username} registry.cn-chengdu.aliyuncs.com --password=${aliyun_password}
-          sudo docker build -t api:latest .
-          sudo docker tag api:latest registry.cn-chengdu.aliyuncs.com/bookkeeping-01/api:latest
-          sudo docker push registry.cn-chengdu.aliyuncs.com/bookkeeping-01/api:latest
+          sudo docker build -t api:${github.ref} .
+          sudo docker tag api:latest registry.cn-chengdu.aliyuncs.com/bookkeeping-01/api:${github.ref}
+          sudo docker push registry.cn-chengdu.aliyuncs.com/bookkeeping-01/api:${github.ref}
