@@ -20,7 +20,7 @@ jobs:
         env:
           aliyun_username: ${{ secrets.ALIYUN_USERNAME }}
           aliyun_password: ${{ secrets.ALIYUN_PASSWORD }}
-          version: ${{github.ref}}
+          version: ${{github.ref:10}}
         run: |
           echo version: ${version}
           cat .env.example >> .env
