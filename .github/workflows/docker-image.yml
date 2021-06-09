@@ -21,9 +21,9 @@ jobs:
           aliyun_username: ${{ secrets.ALIYUN_USERNAME }}
           aliyun_password: ${{ secrets.ALIYUN_PASSWORD }}
         run: |
-          echo version: ${GITHUB_REF:10}
+          echo git tag version: ${GITHUB_REF:10}
           cat .env.example >> .env
           sudo docker login --username=${aliyun_username} registry.cn-chengdu.aliyuncs.com --password=${aliyun_password}
           sudo docker build -t api:${GITHUB_REF:10} .
-          sudo docker tag api:latest registry.cn-chengdu.aliyuncs.com/bookkeeping-01/api:${GITHUB_REF:10}
+          sudo docker tag api:${GITHUB_REF:10} registry.cn-chengdu.aliyuncs.com/bookkeeping-01/api:${GITHUB_REF:10}
           sudo docker push registry.cn-chengdu.aliyuncs.com/bookkeeping-01/api:${GITHUB_REF:10}
