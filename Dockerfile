@@ -18,7 +18,7 @@ FROM node:14.12.0-alpine as install-all
 WORKDIR /app
 COPY . .
 RUN set -x; \
-  yarn config set registry https://registry.npm.taobao.org; \
+  # yarn config set registry https://registry.npm.taobao.org; \
   yarn; \
   yarn cache clean
 
@@ -26,7 +26,7 @@ FROM node:14.12.0-alpine as install-prod
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN set -x; \
-  yarn config set registry https://registry.npm.taobao.org; \
+  # yarn config set registry https://registry.npm.taobao.org; \
   yarn install --production; \
   yarn cache clean
 
