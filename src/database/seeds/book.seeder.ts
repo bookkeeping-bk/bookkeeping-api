@@ -17,6 +17,6 @@ export default class BookSeeder implements Seeder {
       .into(Book)
       .values([{ name: '默认账本' }])
       .execute();
-    Logger.log('账本表初始化完成', 'Seeder');
+    Logger.log('Book table init success', 'Seeder');
   }
 }

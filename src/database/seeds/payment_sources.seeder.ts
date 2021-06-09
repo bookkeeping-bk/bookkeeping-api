@@ -24,6 +24,6 @@ export default class BillTypeSeeder implements Seeder {
         { name: '农村信用社' },
       ])
       .execute();
-    Logger.log('支付来源表初始化完成', 'Seeder');
+    Logger.log('Payment Sources table init success', 'Seeder');
   }
 }

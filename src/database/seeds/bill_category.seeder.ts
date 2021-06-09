@@ -57,6 +57,6 @@ export default class BillTypeSeeder implements Seeder {
       .into(BillCategory)
       .values([...revenues, ...expends])
       .execute();
-    Logger.log('账单类型表初始化完成', 'Seeder');
+    Logger.log('Bill Type table init success', 'Seeder');
   }
 }

@@ -21,8 +21,20 @@ export default class UserSeeder implements Seeder {
           password: User.encryptPassword('123456'),
           registerIp: await User.getPublicIPv4(),
         },
+        {
+          username: 'wyf',
+          mobile: '15244830486',
+          password: User.encryptPassword('123456'),
+          registerIp: await User.getPublicIPv4(),
+        },
+        {
+          username: 'fjg',
+          mobile: '13540960924',
+          password: User.encryptPassword('123456'),
+          registerIp: await User.getPublicIPv4(),
+        },
       ])
       .execute();
-    Logger.log('用户表初始化完成', 'Seeder');
+    Logger.log('Users table init success', 'Seeder');
   }
 }
