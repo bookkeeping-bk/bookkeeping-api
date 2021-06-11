@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 
 RUN set -x; \
-  yarn config set registry https://registry.npm.taobao.org; \
+  # yarn config set registry https://registry.npm.taobao.org; \
   yarn; \
   cp .env.example .env
   yarn migration:run; \
