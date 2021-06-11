@@ -5,7 +5,7 @@ COPY . .
 RUN set -x; \
   # yarn config set registry https://registry.npm.taobao.org; \
   yarn; \
-  cp .env.example .env
+  cp .env.example .env; \
   yarn migration:run; \
   yarn build; \
   rm -rf ./node_modules; \
