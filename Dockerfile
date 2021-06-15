@@ -36,6 +36,7 @@ COPY . .
 RUN set -x; \
   cp .env.example .env; \
   yarn migration:run; \
+  yarn seed:run; \
   yarn build; \
   yarn cache clean
 
