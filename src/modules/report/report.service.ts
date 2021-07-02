@@ -7,6 +7,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Bill } from '@/models/bill.entity';
+import { Utils } from '@/utils/index';
 
 @Injectable()
 export class ReportService {
@@ -15,19 +16,28 @@ export class ReportService {
   ) {}
 
   /**
-   * 获取统计报表
+   * 获取账单统计报表
    * @param queryParams
    */
   async getReport(queryParams: any) {
     const { begin, end } = queryParams;
 
-    const query = await this.billRepo
+    const bills = await this.billRepo
       .createQueryBuilder('bill')
-      .where(`bill.createdAt BETWEEN '${begin}' AND '${end}'`)
+      .leftJoinAndSelect('bill.billCategory', 'billCategory')
+      .leftJoinAndSelect('bill.paymentSource', 'paymentSource')
+      .leftJoinAndSelect('bill.user', 'user')
+      .leftJoinAndSelect('bill.book', 'book')
+      .where('bill.createdAt BETWEEN :begin AND :end', { begin, end })
+      .orderBy('bill.createdAt', 'DESC')
       .getMany();
 
-    // TODO:返回数据结构
-
-    return query;
+    return bills.map(bill => {
+      delete bill.user.password;
+      return {
+        ...bill,
+        money: Utils.moneyFormat(bill.money, true).toFixed(2),
+      };
+    });
   }
 }
