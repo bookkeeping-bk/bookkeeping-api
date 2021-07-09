@@ -31,7 +31,7 @@ export class FileService {
         }),
       );
 
-      return `${req.protocol}://${req.headers.host}/uploads/${file.filename}`;
+      return `${req.protocol}://${req.headers.origin}/uploads/${file.filename}`;
     });
   }
 }
