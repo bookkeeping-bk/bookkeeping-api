@@ -50,12 +50,12 @@ export class BillService {
     }
 
     const [bills, totalPage] = await query.getManyAndCount();
-
     return {
       list: bills.map(bill => {
         delete bill.user.password;
         return {
           ...bill,
+          images: bill.images ? bill.images.split(',') : [],
           money: Utils.moneyFormat(bill.money, true).toFixed(2),
         };
       }),
@@ -80,7 +80,12 @@ export class BillService {
       .where('bill.id = :id', { id });
     const bill = await query.getOne();
     delete bill.user.password;
-    return { ...bill, money: Utils.moneyFormat(bill.money, true).toFixed(2) };
+
+    return {
+      ...bill,
+      images: bill.images ? bill.images.split(',') : [],
+      money: Utils.moneyFormat(bill.money, true).toFixed(2),
+    };
   }
 
   /**
