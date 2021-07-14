@@ -6,6 +6,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { groupBy } from 'lodash';
 import { Bill } from '@/models/bill.entity';
 import { Utils } from '@/utils/index';
 
@@ -32,11 +33,20 @@ export class ReportService {
       .orderBy('bill.createdAt', 'DESC')
       .getMany();
 
-    return bills.map(bill => {
-      delete bill.user.password;
+    const groupByCategory = groupBy(bills, 'billCategory.name');
+
+    return Object.keys(groupByCategory).map(key => {
+      const countMoney = groupByCategory[key].reduce((prev, cur) => {
+        delete cur.user.password;
+        cur.money = Utils.moneyFormat(cur.money, true).toFixed(2);
+        return prev + parseFloat(cur.money);
+      }, 0);
+
       return {
-        ...bill,
-        money: Utils.moneyFormat(bill.money, true).toFixed(2),
+        billCategoryName: key,
+        billCategoryType: groupByCategory[key][0].billCategory.type,
+        billCategoryMoney: countMoney.toFixed(2),
+        bills: groupByCategory[key],
       };
     });
   }

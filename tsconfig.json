@@ -10,6 +10,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "lib": ["esnext", "scripthost"],
     "paths": {
       "@/models/*": ["src/models/*"],
       "@/interfaces/*": ["src/interfaces/*"],
